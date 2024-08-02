@@ -1,5 +1,5 @@
 """
-useful functions for plot styling
+useful functions for plot styling and argparsing
 """
 import numpy as np
 import matplotlib.pyplot as plt
