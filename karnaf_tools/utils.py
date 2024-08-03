@@ -1,13 +1,11 @@
 """
 useful functions for plot styling and argparsing
 """
-import numpy as np
-import matplotlib.pyplot as plt
-import argparse
 
 
 def get_parser(doc_txt=''):
     """Usage: get_parser(__doc__)"""
+    import argparse
     parser = argparse.ArgumentParser(description=doc_txt,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     return parser
@@ -15,6 +13,7 @@ def get_parser(doc_txt=''):
 
 def smooth(x, window_len=5, window='flat'):
     """Smooth a one-dimensional array with a moving window convolution."""
+    import numpy as np
     allowed_windows = ['flat', 'hanning', 'blackman', 'kaiser', 'bartlett']
     # Check input validity
     if x.ndim != 1:
@@ -47,6 +46,7 @@ def finish_styled_plot(grid_minor=True):
     It sets the figure to be in tight layout, fix the legend if necessary and the grid minor.
     :param grid_minor: choose if to plot minor grid lines
     """
+    import matplotlib.pyplot as plt
     for i in plt.get_fignums():
         fig = plt.figure(i)
         fig.tight_layout()
@@ -68,14 +68,16 @@ CB_colors = ['#377eb8', '#ff7f00', '#4daf4a', '#f781bf', '#965628', '#984ea3', '
 
 
 def CBC(CB):
+    import numpy as np
     CB = np.mod(CB, len(CB_colors)).astype(int)
     return np.take(CB_colors, CB)
 
 
 def init_styled_plot(tex=False, cmap='tab20', font_type='David'):
-    import warnings
+    # import warnings
     # from matplotlib.mathtext import MathTextWarning
     # warnings.filterwarnings('ignore', category=MathTextWarning)
+    import matplotlib.pyplot as plt
     for attr, val in styled_plots(tex=tex, cmap=cmap, font_type=font_type).items():
         plt.rcParams[attr] = val
     return
@@ -89,6 +91,7 @@ def styled_plots(tex=False, cmap='tab20', font_type='David'):
     :param cmap: color scheme for lines
     :param font_type: font to use in titles and labels
     """
+    import matplotlib.pyplot as plt
     plt.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}' \
                                           r'\usepackage{amssymb}' \
                                           r'\usepackage{bm}' \
